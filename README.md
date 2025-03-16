@@ -52,6 +52,40 @@ create project-specific virtual environments. The use of `venv` also reflects AW
 out more in the
 workshop [Activating the virtualenv](https://cdkworkshop.com/30-python/20-create-project/200-virtualenv.html).
 
+```
+# 1. プロジェクトディレクトリに移動
+ikmz@KoichirizunoMBP oss/aws-kms-ethereum-accounts % 
+
+# 2. 新しい仮想環境の作成
+python -m venv .venv
+
+# 3. 仮想環境のアクティベート
+source .venv/bin/activate
+(.venv) ikmz@KoichirizunoMBP oss/aws-kms-ethereum-accounts % 
+
+# 4. 必要なパッケージのインストール
+(.venv) ikmz@KoichirizunoMBP aws-kms-ethereum-accounts % pip install -r requirements.txt
+Requirement already satisfied: aws-cdk-lib==2.51.1 in ./.venv/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (2.51.1)
+
+# 5. CDK のバージョン確認
+npm install -g aws-cdk
+changed 1 package in 1s
+
+# 6. デプロイ前に、CloudFormation テンプレートが正しく生成されるか確認
+rm -r cdk.out
+cdk synth
+cdk bootstrap
+cdk deploy
+
+# 7. 再度デプロイ
+cdk deploy
+
+待機しないとダメになる。
+
+# 8. リソースの削除
+cdk destroy
+```
+
 1. Install the CDK and test the CDK CLI:
     ```bash
     npm install -g aws-cdk && cdk --version

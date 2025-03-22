@@ -10,6 +10,9 @@ KMS_FOLDER="./application/${CDK_APPLICATION_TYPE}/enclave/kms"
 KMSTOOL_FOLDER="./aws-nitro-enclaves-sdk-c/bin/kmstool-enclave-cli"
 TARGET_PLATFORM="linux/amd64"
 
+echo "[DEBUG] build.sh の内容確認"
+cat ./application/${CDK_APPLICATION_TYPE}/enclave/kms/aws-nitro-enclaves-sdk-c/bin/kmstool-enclave-cli/build.sh
+
 # 保存フォルダを作る。もし無ければ作るってだけ。
 if [[ ! -d ${KMS_FOLDER} ]]; then
   mkdir -p ${KMS_FOLDER}

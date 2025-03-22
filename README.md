@@ -90,7 +90,7 @@ changed 1 package in 1s
 4. Specify the AWS region and account for your deployment:
    ```bash
    export CDK_DEPLOY_REGION=us-east-1
-   export CDK_DEPLOY_ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account')
+   export CDK_DEPLOY_ACCOUNT=$(aws sts get-caller-identity --output json | jq -r '.Account')
    export CDK_APPLICATION_TYPE=eth1
    export CDK_PREFIX=dev
    ```

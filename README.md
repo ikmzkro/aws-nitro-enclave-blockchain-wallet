@@ -66,13 +66,22 @@ workshop [Activating the virtualenv](https://cdkworkshop.com/30-python/20-create
    pip install -r requirements.txt
    ```
 4. Specify the AWS region and account for your deployment:
+   現在のAWS CLI認証情報から「AWSアカウントID」を取得してセット
    ```bash
    export CDK_DEPLOY_REGION=us-east-1
-   export CDK_DEPLOY_ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account')
+   export CDK_DEPLOY_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
    export CDK_APPLICATION_TYPE=eth1
    export CDK_PREFIX=dev
    ```
    You can set the ```CDK_PREFIX``` variable as per your preference.
+
+   `env | grep CDK_`でコマンド反映を確認する:
+   ```
+   CDK_DEPLOY_ACCOUNT=139017542257
+   CDK_PREFIX=dev
+   CDK_APPLICATION_TYPE=eth1
+   CDK_DEPLOY_REGION=us-east-1
+   ```
 
 5. Trigger the `kmstool_enclave_cli` build:
    ```bash
@@ -81,6 +90,7 @@ workshop [Activating the virtualenv](https://cdkworkshop.com/30-python/20-create
 
 6. Deploy the example code with the CDK CLI:
     ```bash
+    cdk bootstrap aws://$CDK_DEPLOY_ACCOUNT/$CDK_DEPLOY_REGION
     cdk deploy ${CDK_PREFIX}NitroWalletEth
     ```
 

@@ -21,6 +21,11 @@ cd ${KMS_FOLDER}
 git clone --depth 1 --branch ${NITRO_ENCLAVE_CLI_VERSION} https://github.com/aws/aws-nitro-enclaves-sdk-c.git
 
 # for corporate networks disable GOPROXY
+# Dockerfile.al2（Amazon Linux 2用のDockerfile）に、
+# GOPROXYの設定を直書きで追加して、corporate proxy 環境
+# （企業ネットワーク）でもビルドできるようにする 対策をしている。
+# 企業ネットワーク内 だとGoの依存パッケージ取得に失敗する可能性が高い
+# 特に proxy.golang.org にアクセスできないケースでビルドが止まる
 cd ./aws-nitro-enclaves-sdk-c/containers
 awk 'NR==1{print; print "ARG GOPROXY=direct"} NR!=1' Dockerfile.al2 >Dockerfile.al2_new
 cd ../../

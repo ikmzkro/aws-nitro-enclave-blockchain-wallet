@@ -32,7 +32,14 @@ cd ../../
 
 cd ${KMSTOOL_FOLDER}
 
+# 修正済みの Dockerfile.al2_new を使わせるため
+# build.sh の中の Docker ビルドパスを 書き換える
+# オリジナル：-f ../../containers/Dockerfile.al2
+# 変更後　　：-f ../../containers/Dockerfile.al2_new --platform=linux/amd64
+
+# sed 's|置換前|置換後|g' 対象ファイル > 新しいファイル
 sed "s|-f ../../containers/Dockerfile.al2 ../..|-f ../../containers/Dockerfile.al2_new ../.. --platform=${TARGET_PLATFORM}|g" build.sh >build.sh_new
+# 一時的に生成した新しい build.sh を、元の build.sh に上書きする 
 mv build.sh_new build.sh
 chmod +x build.sh
 ./build.sh

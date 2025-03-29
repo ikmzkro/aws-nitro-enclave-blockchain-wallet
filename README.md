@@ -88,7 +88,7 @@ workshop [Activating the virtualenv](https://cdkworkshop.com/30-python/20-create
    ./scripts/build_kmstool_enclave_cli.sh
    ```
 
-6. Deploy the example code with the CDK CLI:
+6. Deploy the example code with the CDK CLI: CDKがCloudFormationを使ってスタックをデプロイするための準備ステージ
     ```bash
     cdk bootstrap aws://$CDK_DEPLOY_ACCOUNT/$CDK_DEPLOY_REGION
     cdk deploy ${CDK_PREFIX}NitroWalletEth

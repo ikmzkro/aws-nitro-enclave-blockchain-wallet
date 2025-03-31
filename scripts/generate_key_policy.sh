@@ -15,7 +15,17 @@ echo "[INFO] --- JSON Content End ---"
 # output.json から ASG 名を取得
 # instance id
 asg_name=$(jq -r '.devNitroWalletEth.ASGGroupName' "${output}")
+
+if [[ -z "$asg_name" || "$asg_name" == "null" ]]; then
+  echo "[ERROR] Failed to extract ASGGroupName from ${output}"
+  exit 1
+fi
+
+echo "[INFO] Extracted ASG Name: $asg_name"
+
 instance_id=$(./scripts/get_asg_instances.sh "${asg_name}" | head -n 1)
+
+echo "[INFO] First instance ID in ASG: $instance_id"
 
 # pcr_0
 # pcr_0 for debug mode:

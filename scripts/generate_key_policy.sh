@@ -4,8 +4,15 @@
 set -e
 set +x
 
+# ファイル名を第一引数から受け取る
 output=${1}
 
+echo "[INFO] Using JSON file: $output"
+echo "[INFO] --- JSON Content Start ---"
+cat "$output"
+echo "[INFO] --- JSON Content End ---"
+
+# output.json から ASG 名を取得
 # instance id
 asg_name=$(jq -r '.devNitroWalletEth.ASGGroupName' "${output}")
 instance_id=$(./scripts/get_asg_instances.sh "${asg_name}" | head -n 1)

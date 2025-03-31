@@ -21,13 +21,22 @@ echo "[INFO] Looking up ASG: $ASG_NAME in region: $REGION" >&2
 # aws autoscaling describe-auto-scaling-groups を使って、 指定したASGに紐づくインスタンス情報を取得
 # 指定した Auto Scaling Group に紐づいていて、稼働中（InService）の EC2インスタンスのIDを出力する
 # aws autoscaling describe-auto-scaling-groups \
-#   --region "$REGION" \
-#   --auto-scaling-group-name "$ASG_NAME" |
-#   jq -r '.AutoScalingGroups[0].Instances[] | select(.LifecycleState | contains("InService")) | .InstanceId'
+
+# 通常の jq は JSON形式で出力します。
+# -r をつけると 文字列をプレーンなテキスト（生文字列）として出力
+# echo '{"name":"ikmz"}' | jq '.name'    # → "ikmz"
+# echo '{"name":"ikmz"}' | jq -r '.name' # → ikmz
 
 aws autoscaling describe-auto-scaling-groups \
   --region "$REGION" \
   --auto-scaling-group-name "$ASG_NAME" \
   --output json > asg_response.json
 
-# jq -r '.AutoScalingGroups[0].Instances[] | select(.LifecycleState | contains("InService")) | .InstanceId' asg_response.json
+# フィルターを通ったインスタンスから InstanceId を取り出す
+# JSON
+#  └─ AutoScalingGroups[0]
+#      └─ Instances[] ← ループで取り出し
+#          └─ select(.LifecycleState contains "InService")
+#              └─ .InstanceId → 出力（-r で文字列）
+
+jq -r '.AutoScalingGroups[0].Instances[] | select(.LifecycleState | contains("InService")) | .InstanceId' asg_response.json

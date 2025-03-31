@@ -30,6 +30,7 @@ echo "[INFO] First instance ID in ASG: $instance_id"
 # pcr_0
 # pcr_0 for debug mode:
 # 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+# TODO: BugFix: parse error: Invalid numeric literal at line 1, column 8
 pcr_0=$(./scripts/get_pcr0.sh "${instance_id}")
 
 # ec2 role

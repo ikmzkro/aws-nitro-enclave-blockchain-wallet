@@ -23,3 +23,4 @@ application/wireguard/enclave/kms/*
 
 # Local
 output.json
+asg_response.json

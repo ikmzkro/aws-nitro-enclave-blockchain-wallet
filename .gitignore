@@ -20,3 +20,6 @@ application/eth2/
 *.key
 application/wireguard/third_party/*
 application/wireguard/enclave/kms/*
+
+# Local
+output.json

@@ -1,5 +1,41 @@
-COMMAND	66d63d68-f900-43cc-bbf5-be404c828778		0	0	AWS-RunShellScript	$DEFAULT	0	2025-04-01T14:49:27.157000+09:00	50	0			us-east-1	2025-04-01T12:49:27.157000+09:00		Pending	Pending	1	3600
-CLOUDWATCHOUTPUTCONFIG		False
-INSTANCEIDS	i-028740c2eebd816a4
-NOTIFICATIONCONFIG		
-COMMANDS	sudo nitro-cli describe-enclaves | jq -r ".[].Measurements.PCR0"
+{
+    "Command": {
+        "CommandId": "64fab6da-b5a6-42c7-8aa8-c03159a3c3f4",
+        "DocumentName": "AWS-RunShellScript",
+        "DocumentVersion": "$DEFAULT",
+        "Comment": "",
+        "ExpiresAfter": "2025-04-02T20:17:30.200000+09:00",
+        "Parameters": {
+            "commands": [
+                "sudo nitro-cli describe-enclaves | jq -r \".[].Measurements.PCR0\""
+            ]
+        },
+        "InstanceIds": [
+            "i-028740c2eebd816a4"
+        ],
+        "Targets": [],
+        "RequestedDateTime": "2025-04-02T18:17:30.200000+09:00",
+        "Status": "Pending",
+        "StatusDetails": "Pending",
+        "OutputS3Region": "us-east-1",
+        "OutputS3BucketName": "",
+        "OutputS3KeyPrefix": "",
+        "MaxConcurrency": "50",
+        "MaxErrors": "0",
+        "TargetCount": 1,
+        "CompletedCount": 0,
+        "ErrorCount": 0,
+        "DeliveryTimedOutCount": 0,
+        "ServiceRole": "",
+        "NotificationConfig": {
+            "NotificationArn": "",
+            "NotificationEvents": [],
+            "NotificationType": ""
+        },
+        "CloudWatchOutputConfig": {
+            "CloudWatchLogGroupName": "",
+            "CloudWatchOutputEnabled": false
+        },
+        "TimeoutSeconds": 3600
+    }
+}

@@ -29,6 +29,7 @@ aws ssm send-command \
   --document-name "AWS-RunShellScript" \
   --instance-ids ${INSTANCE_ID} \
   --parameters '{"commands":["sudo nitro-cli describe-enclaves | jq -r \".[].Measurements.PCR0\""]}' \
+  --output json \
   > ${SSM_RESPONSE_FILE}
 
 echo "[DEBUG] Raw SSM send-command response:"
@@ -41,19 +42,28 @@ echo "[INFO] Command ID: ${command_id}"
 # こっちも一時ファイルに保存して確認
 INVOCATION_RESPONSE_FILE="./invocation_response.json"
 
-# pcr_0=$(aws ssm list-command-invocations \
-#   --region ${CDK_DEPLOY_REGION} \
-#   --instance-id ${INSTANCE_ID} \
-#   --command-id ${command_id} \
-#   --details \
-#   | jq -r '.CommandInvocations[0].CommandPlugins[0].Output')
+# Wait until the command finishes
+echo "[INFO] Waiting for command to finish..."
+while true; do
+  aws ssm list-command-invocations \
+    --region ${CDK_DEPLOY_REGION} \
+    --instance-id ${INSTANCE_ID} \
+    --command-id ${command_id} \
+    --output json \
+    --details > ${INVOCATION_RESPONSE_FILE}
 
-aws ssm list-command-invocations \
-  --region ${CDK_DEPLOY_REGION} \
-  --instance-id ${INSTANCE_ID} \
-  --command-id ${command_id} \
-  --details \
-  > ${INVOCATION_RESPONSE_FILE}
+  status=$(jq -r '.CommandInvocations[0].Status' < ${INVOCATION_RESPONSE_FILE})
+
+  echo "[INFO] Current status: ${status}"
+  if [[ "${status}" == "Success" ]]; then
+    break
+  elif [[ "${status}" == "Failed" || "${status}" == "Cancelled" ]]; then
+    echo "[ERROR] Command failed with status: ${status}"
+    exit 1
+  fi
+
+  sleep 2
+done
 
 echo "[DEBUG] Raw command invocation result:"
 cat ${INVOCATION_RESPONSE_FILE} | jq . || cat ${INVOCATION_RESPONSE_FILE}

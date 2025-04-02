@@ -32,15 +32,18 @@ echo "[INFO] First instance ID in ASG: $instance_id"
 # 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 # TODO: BugFix: parse error: Invalid numeric literal at line 1, column 8
 pcr_0=$(./scripts/get_pcr0.sh "${instance_id}")
+echo "[INFO] pcr_0: $pcr_0"
 
 # ec2 role
 ec2_role_arn=$(jq -r '.devNitroWalletEth.EC2InstanceRoleARN' "${output}")
+echo "[INFO] ec2_role_arn: $ec2_role_arn"
 
 # lambda role
 lambda_execution_arn=$(jq -r '.devNitroWalletEth.LambdaExecutionRoleARN' "${output}")
+echo "[INFO] lambda_execution_arn: $lambda_execution_arn"
 
 # account
-account_id=$(aws sts get-caller-identity | jq -r '.Account')
+account_id=$(aws sts get-caller-identity --output json | jq -r '.Account')
 
 # Use the jq --arg option to pass shell variables into jq
 jq --arg pcr_0 "$pcr_0" \

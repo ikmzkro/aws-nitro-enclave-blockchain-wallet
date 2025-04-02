@@ -1,10 +1,10 @@
 {
     "Command": {
-        "CommandId": "64fab6da-b5a6-42c7-8aa8-c03159a3c3f4",
+        "CommandId": "9a12624f-7ece-4d65-bd0c-82f635187619",
         "DocumentName": "AWS-RunShellScript",
         "DocumentVersion": "$DEFAULT",
         "Comment": "",
-        "ExpiresAfter": "2025-04-02T20:17:30.200000+09:00",
+        "ExpiresAfter": "2025-04-02T20:25:02.344000+09:00",
         "Parameters": {
             "commands": [
                 "sudo nitro-cli describe-enclaves | jq -r \".[].Measurements.PCR0\""
@@ -14,7 +14,7 @@
             "i-028740c2eebd816a4"
         ],
         "Targets": [],
-        "RequestedDateTime": "2025-04-02T18:17:30.200000+09:00",
+        "RequestedDateTime": "2025-04-02T18:25:02.344000+09:00",
         "Status": "Pending",
         "StatusDetails": "Pending",
         "OutputS3Region": "us-east-1",

@@ -90,6 +90,7 @@ workshop [Activating the virtualenv](https://cdkworkshop.com/30-python/20-create
 
 6. Deploy the example code with the CDK CLI:
     ```bash
+    cdk bootstrap
     cdk deploy ${CDK_PREFIX}NitroWalletEth
     ```
 

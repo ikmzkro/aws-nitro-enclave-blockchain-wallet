@@ -63,6 +63,8 @@ workshop [Activating the virtualenv](https://cdkworkshop.com/30-python/20-create
     ```
 3. Install the dependencies using the Python package manager:
    ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
    pip install -r requirements.txt
    ```
 4. Specify the AWS region and account for your deployment:

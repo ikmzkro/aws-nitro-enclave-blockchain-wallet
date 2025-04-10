@@ -70,7 +70,7 @@ workshop [Activating the virtualenv](https://cdkworkshop.com/30-python/20-create
 4. Specify the AWS region and account for your deployment:
    ```bash
    export CDK_DEPLOY_REGION=us-east-1
-   export CDK_DEPLOY_ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account')
+   export CDK_DEPLOY_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
    export CDK_APPLICATION_TYPE=eth1
    export CDK_PREFIX=dev
    ```

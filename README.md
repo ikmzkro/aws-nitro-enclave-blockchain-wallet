@@ -75,7 +75,7 @@ workshop [Activating the virtualenv](https://cdkworkshop.com/30-python/20-create
    export CDK_PREFIX=dev
    ```
    You can set the ```CDK_PREFIX``` variable as per your preference.
-   Check that the command was applied using env | grep CDK_.
+   Check that the command was applied using `env | grep CDK_`.
    ```
    CDK_DEPLOY_ACCOUNT=xxxxxxxxxx
    CDK_PREFIX=dev
